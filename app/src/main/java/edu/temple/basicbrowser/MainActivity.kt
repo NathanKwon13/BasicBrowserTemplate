@@ -31,13 +31,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         goButton.setOnClickListener {
-            val url = (urlEditText.text).toString()
-            webView.loadUrl(url)
+            webView.loadUrl(parseURL(urlEditText.text.toString()))
         }
 
-        fun parseURL(url: String): String {
-            return if (url.contains("://")) url else "https://$url"
-        }
 
+    }
+    private fun parseURL(url: String): String {
+        val newUrl: String
+        if (url.startsWith("http")) {
+            newUrl = url
+        } else {
+            newUrl = "https://$url"
+            urlEditText.setText(newUrl)
+        }
+        return newUrl
     }
 }

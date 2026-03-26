@@ -6,6 +6,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.ImageButton
+import android.net.Uri
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +28,15 @@ class MainActivity : AppCompatActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
             }
+        }
+
+        goButton.setOnClickListener {
+            val url = (urlEditText.text).toString()
+            webView.loadUrl(url)
+        }
+
+        fun parseURL(url: String): String {
+            return if (url.contains("://")) url else "https://$url"
         }
 
     }
